@@ -2,20 +2,7 @@
   <div class="product">
     <header-shayna />
 
-    <!-- Breadcrumb Section Begin -->
-    <div class="breacrumb-section text-left">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-12">
-            <div class="breadcrumb-text product-more">
-              <router-link to="/"><i class="fa fa-home"></i> Home</router-link>
-              <span>Detail</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- Breadcrumb Section Begin -->
+    <bread-crumb title="Detail Produk" />
 
     <!-- Product Shop Section Begin -->
     <section class="product-shop spad page-details">
@@ -100,8 +87,8 @@
                     <h4>$495.00</h4>
                   </div>
                   <div class="quantity">
-                    <a href="shopping-cart.html" class="primary-btn pd-cart"
-                      >Add To Cart</a
+                    <router-link to="/cart" class="primary-btn pd-cart"
+                      >Add To Cart</router-link
                     >
                   </div>
                 </div>
@@ -124,6 +111,7 @@ import HeaderShayna from "../components/HeaderShayna.vue";
 import FooterShayna from "../components/FooterShayna.vue";
 import carousel from "vue-owl-carousel";
 import RelatedProduct from "../components/RelatedProduct.vue";
+import BreadCrumb from "../components/BreadCrumb.vue";
 
 export default {
   name: "Product",
@@ -132,6 +120,7 @@ export default {
     FooterShayna,
     carousel,
     RelatedProduct,
+    BreadCrumb,
   },
   data() {
     return {
