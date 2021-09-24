@@ -11,9 +11,9 @@
               /></a>
             </div>
             <ul>
-              <li>Address: Setra Duta, Bandung</li>
-              <li>Phone: +628 22081996</li>
-              <li>Email: hello.shayna@gmail.com</li>
+              <li>Address: Jl. Kaswari, Ngiringin, Congcat</li>
+              <li>Phone: +62 8963 979 1889</li>
+              <li>Email: januarhairul@gmail.com</li>
             </ul>
             <div class="footer-social">
               <a href="#"><i class="fa fa-facebook"></i></a>
@@ -40,7 +40,7 @@
             <ul>
               <li><a href="#">My Account</a></li>
               <li><a href="#">Contact</a></li>
-              <li><a href="#">Shopping Cart</a></li>
+              <li><router-link to="/cart">Shopping Cart</router-link></li>
               <li><a href="#">Shop</a></li>
             </ul>
           </div>

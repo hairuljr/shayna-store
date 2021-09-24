@@ -5,10 +5,10 @@
       <div class="container">
         <div class="ht-left">
           <div class="mail-service">
-            <i class="fa fa-envelope"></i> hello.shayna@gmail.com
+            <i class="fa fa-envelope"></i> januarhairul@gmail.com
           </div>
           <div class="phone-service">
-            <i class="fa fa-phone"></i> +628 22081996
+            <i class="fa fa-phone"></i> +62 8963 979 1889
           </div>
         </div>
       </div>
@@ -18,9 +18,9 @@
         <div class="row">
           <div class="col-lg-2 col-md-2">
             <div class="logo">
-              <a href="./index.html">
+              <router-link to="/">
                 <img src="img/logo_website_shayna.png" alt="" />
-              </a>
+              </router-link>
             </div>
           </div>
           <div class="col-lg-7 col-md-7"></div>
@@ -28,10 +28,10 @@
             <ul class="nav-right">
               <li class="cart-icon">
                 Keranjang Belanja &nbsp;
-                <a href="#">
+                <router-link to="/cart">
                   <i class="icon_bag_alt"></i>
                   <span>3</span>
-                </a>
+                </router-link>
                 <div class="cart-hover">
                   <div class="select-items">
                     <table>
@@ -72,7 +72,9 @@
                     <h5>$120.00</h5>
                   </div>
                   <div class="select-button">
-                    <a href="#" class="primary-btn view-card">VIEW CARD</a>
+                    <router-link to="/cart" class="primary-btn view-card"
+                      >VIEW CARD</router-link
+                    >
                     <a href="#" class="primary-btn checkout-btn">CHECK OUT</a>
                   </div>
                 </div>
