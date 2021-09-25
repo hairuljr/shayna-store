@@ -21,7 +21,18 @@
                 <img src="img/mickey1.jpg" alt="" />
                 <ul>
                   <li class="w-icon active">
-                    <a href="#"><i class="icon_bag_alt"></i></a>
+                    <a
+                      @click="
+                        addToCart(
+                          product.id,
+                          product.name,
+                          product.price,
+                          product.galleries[0].photo
+                        )
+                      "
+                      href="#"
+                      ><i class="icon_bag_alt"></i
+                    ></a>
                   </li>
                   <li class="quick-view">
                     <router-link :to="'/product/' + product.id"
@@ -63,9 +74,17 @@ export default {
   data() {
     return {
       products: [],
+      keranjangUser: [],
     };
   },
   mounted() {
+    if (localStorage.getItem("keranjangUser")) {
+      try {
+        this.keranjangUser = JSON.parse(localStorage.getItem("keranjangUser"));
+      } catch (e) {
+        localStorage.removeItem("keranjangUser");
+      }
+    }
     axios
       .get("http://127.0.0.1:8000/api/products")
       .then((res) => (this.products = res.data.data.data))
@@ -75,6 +94,21 @@ export default {
     rupiah(value) {
       let val = (value / 1).toFixed(2).replace(".", ",");
       return "Rp. " + val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+    },
+    addToCart(idProduct, productName, price, photo) {
+      let productStored = {
+        id: idProduct,
+        name: productName,
+        price: price,
+        photo: photo,
+      };
+      this.keranjangUser.push(productStored);
+      this.refreshCart();
+    },
+    refreshCart() {
+      const parsed = JSON.stringify(this.keranjangUser);
+      localStorage.setItem("keranjangUser", parsed);
+      window.location.reload();
     },
   },
 };

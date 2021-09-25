@@ -43,13 +43,25 @@
                     <h3>{{ productDetail.name }}</h3>
                   </div>
                   <div class="pd-desc">
-                    {{ productDetail.description }}
+                    <p v-html="productDetail.description"></p>
                     <h4 class="mt-3">{{ rupiah(productDetail.price) }}</h4>
                   </div>
                   <div class="quantity">
-                    <router-link to="/cart" class="primary-btn pd-cart"
-                      >Add To Cart</router-link
-                    >
+                    <router-link to="/cart">
+                      <a
+                        @click="
+                          addToCart(
+                            productDetail.id,
+                            productDetail.name,
+                            productDetail.price,
+                            productDetail.galleries[0].photo
+                          )
+                        "
+                        href="#"
+                        class="primary-btn pd-cart"
+                        >Add To Cart</a
+                      >
+                    </router-link>
                   </div>
                 </div>
               </div>
@@ -87,9 +99,17 @@ export default {
     return {
       gambar_default: "",
       productDetail: [],
+      keranjangUser: [],
     };
   },
   mounted() {
+    if (localStorage.getItem("keranjangUser")) {
+      try {
+        this.keranjangUser = JSON.parse(localStorage.getItem("keranjangUser"));
+      } catch (e) {
+        localStorage.removeItem("keranjangUser");
+      }
+    }
     axios
       .get("http://127.0.0.1:8000/api/products", {
         params: {
@@ -110,6 +130,21 @@ export default {
     getGalleryProduct(data) {
       this.productDetail = data;
       this.gambar_default = data.galleries[0].photo;
+    },
+    addToCart(idProduct, productName, price, photo) {
+      let productStored = {
+        id: idProduct,
+        name: productName,
+        price: price,
+        photo: photo,
+      };
+      this.keranjangUser.push(productStored);
+      this.refreshCart();
+    },
+    refreshCart() {
+      const parsed = JSON.stringify(this.keranjangUser);
+      localStorage.setItem("keranjangUser", parsed);
+      window.location.reload();
     },
   },
 };

@@ -30,37 +30,34 @@
                 Keranjang Belanja &nbsp;
                 <router-link to="/cart">
                   <i class="icon_bag_alt"></i>
-                  <span>3</span>
+                  <span>{{ keranjangUser.length }}</span>
                 </router-link>
-                <div class="cart-hover">
+                <div
+                  :key="componentKey"
+                  class="cart-hover"
+                  v-if="keranjangUser.length > 0"
+                >
                   <div class="select-items">
                     <table>
                       <tbody>
-                        <tr>
+                        <tr
+                          v-for="(keranjang, index) in keranjangUser"
+                          :key="keranjang.id"
+                        >
                           <td class="si-pic">
-                            <img src="img/select-product-1.jpg" alt="" />
+                            <img
+                              class="photo-cart-item"
+                              :src="keranjang.photo"
+                              alt=""
+                            />
                           </td>
                           <td class="si-text">
                             <div class="product-selected">
-                              <p>$60.00 x 1</p>
-                              <h6>Kabino Bedside Table</h6>
+                              <p>{{ rupiah(keranjang.price) }}</p>
+                              <h6>{{ keranjang.name }}</h6>
                             </div>
                           </td>
-                          <td class="si-close">
-                            <i class="ti-close"></i>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td class="si-pic">
-                            <img src="img/select-product-2.jpg" alt="" />
-                          </td>
-                          <td class="si-text">
-                            <div class="product-selected">
-                              <p>$60.00 x 1</p>
-                              <h6>Kabino Bedside Table</h6>
-                            </div>
-                          </td>
-                          <td class="si-close">
+                          <td class="si-close" @click="removeCartItem(index)">
                             <i class="ti-close"></i>
                           </td>
                         </tr>
@@ -69,13 +66,24 @@
                   </div>
                   <div class="select-total">
                     <span>total:</span>
-                    <h5>$120.00</h5>
+                    <h5>{{ rupiah(totalHarga) }}</h5>
                   </div>
                   <div class="select-button">
                     <router-link to="/cart" class="primary-btn view-card"
                       >VIEW CARD</router-link
                     >
                     <a href="#" class="primary-btn checkout-btn">CHECK OUT</a>
+                  </div>
+                </div>
+                <div class="cart-hover" v-else>
+                  <div class="select-items">
+                    <table>
+                      <tbody>
+                        <tr class="text-center">
+                          <td>Keranjang kosong</td>
+                        </tr>
+                      </tbody>
+                    </table>
                   </div>
                 </div>
               </li>
@@ -91,5 +99,50 @@
 <script>
 export default {
   name: "HeaderShayna",
+  data() {
+    return {
+      keranjangUser: [],
+      componentKey: "",
+    };
+  },
+  mounted() {
+    if (localStorage.getItem("keranjangUser")) {
+      try {
+        this.keranjangUser = JSON.parse(localStorage.getItem("keranjangUser"));
+      } catch (e) {
+        localStorage.removeItem("keranjangUser");
+      }
+    }
+  },
+  methods: {
+    forceRerender() {
+      this.componentKey += 1;
+    },
+    rupiah(value) {
+      let val = (value / 1).toFixed(0).replace(".", "");
+      return "Rp. " + val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+    },
+    removeCartItem(index) {
+      this.keranjangUser.splice(index, 1);
+      this.refreshCart();
+    },
+    refreshCart() {
+      const parsed = JSON.stringify(this.keranjangUser);
+      localStorage.setItem("keranjangUser", parsed);
+    },
+  },
+  computed: {
+    totalHarga() {
+      return this.keranjangUser.reduce(function (items, data) {
+        return items + data.price;
+      }, 0);
+    },
+  },
 };
 </script>
+
+<style scoped>
+.photo-cart-item {
+  max-width: 100px;
+}
+</style>
