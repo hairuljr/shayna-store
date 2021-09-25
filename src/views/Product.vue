@@ -47,21 +47,19 @@
                     <h4 class="mt-3">{{ rupiah(productDetail.price) }}</h4>
                   </div>
                   <div class="quantity">
-                    <router-link to="/cart">
-                      <a
-                        @click="
-                          addToCart(
-                            productDetail.id,
-                            productDetail.name,
-                            productDetail.price,
-                            productDetail.galleries[0].photo
-                          )
-                        "
-                        href="#"
-                        class="primary-btn pd-cart"
-                        >Add To Cart</a
-                      >
-                    </router-link>
+                    <a
+                      @click="
+                        addToCart(
+                          productDetail.id,
+                          productDetail.name,
+                          productDetail.price,
+                          productDetail.galleries[0].photo
+                        )
+                      "
+                      href="#"
+                      class="primary-btn pd-cart"
+                      >Add To Cart</a
+                    >
                   </div>
                 </div>
               </div>

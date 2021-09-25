@@ -18,7 +18,11 @@
               :key="product.id"
             >
               <div class="pi-pic">
-                <img src="img/mickey1.jpg" alt="" />
+                <img
+                  class="woman-product"
+                  :src="product.galleries[0].photo"
+                  alt=""
+                />
                 <ul>
                   <li class="w-icon active">
                     <a
@@ -31,7 +35,7 @@
                         )
                       "
                       href="#"
-                      ><i class="icon_bag_alt"></i
+                      ><i class="fa fa-cart-plus"></i
                     ></a>
                   </li>
                   <li class="quick-view">
@@ -113,3 +117,9 @@ export default {
   },
 };
 </script>
+<style scoped>
+.woman-product {
+  min-height: 300px;
+  max-height: 500px;
+}
+</style>

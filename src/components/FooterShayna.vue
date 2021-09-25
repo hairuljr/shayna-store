@@ -30,7 +30,7 @@
               <li><a href="#">About Us</a></li>
               <li><a href="#">Checkout</a></li>
               <li><a href="#">Contact</a></li>
-              <li><a href="#">Serivius</a></li>
+              <li><a href="#">Service</a></li>
             </ul>
           </div>
         </div>
